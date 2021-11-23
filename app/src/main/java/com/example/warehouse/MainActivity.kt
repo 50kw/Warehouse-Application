@@ -3,6 +3,7 @@ package com.example.warehouse
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -12,6 +13,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.warehouse.arch.WarehouseViewModel
+import com.example.warehouse.database.WarehouseDatabase
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -26,11 +29,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         SharedPrefUtil.init(this)
+
+        val viewModel: WarehouseViewModel by viewModels()
+        viewModel.init(WarehouseDatabase.getDatabase(this))
+
+        //deleteDatabase("warehouse-database")
+
         setupDrawerNavigation()
 
         if (SharedPrefUtil.getCurrentUserId() == "none") {
             navController.navigate(R.id.loginFragment)
         }
+
     }
 
     private fun setupDrawerNavigation() {
