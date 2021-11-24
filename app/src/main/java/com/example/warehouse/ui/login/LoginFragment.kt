@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.warehouse.R
+import com.example.warehouse.SharedPrefUtil
 import com.example.warehouse.database.WarehouseDatabase
 import com.example.warehouse.databinding.FragmentLoginBinding
 import com.example.warehouse.ui.BaseFragment
@@ -34,13 +36,27 @@ class LoginFragment : BaseFragment() {
 
         loginViewModel.init(WarehouseDatabase.getDatabase(requireContext()))
 
+        //findNavController().popBackStack()
+        /*val actionBar = requireActivity().actionBar
+        actionBar?.setDisplayHomeAsUpEnabled(false)
+        actionBar?.setDisplayShowHomeEnabled(false)
+        actionBar?.setHomeButtonEnabled(false)*/
+        val navIcon = mainActivity.toolbar.navigationIcon
+        mainActivity.toolbar.navigationIcon = null
+
         loginViewModel.userId.observe(viewLifecycleOwner) { userId ->
             if (userId == "wrong") {
                 binding.wrongDataTextView.isVisible = true
             } else if (userId != "none") {
                 binding.wrongDataTextView.isVisible = false
-                loginViewModel.userId.postValue(userId)
-                val navDirections = LoginFragmentDirections.actionLoginFragmentToOrdersFragment()
+                if (binding.rememberCheckBox.isChecked) {
+                    SharedPrefUtil.setSavedUserId(userId)
+                } else {
+                    SharedPrefUtil.setSavedUserId("none")
+                }
+                setCurrentUser(userId)
+                mainActivity.toolbar.navigationIcon = navIcon
+                val navDirections = LoginFragmentDirections.actionLoginFragmentToNavOrders()
                 navigateViaNavGraph(navDirections)
                 return@observe
             }

@@ -16,9 +16,7 @@ class LoginViewModel : ViewModel() {
 
     val orderTransactionCompleteLiveData = MutableLiveData<Event<Boolean>>()
 
-    val userId: MutableLiveData<String> by lazy {
-        MutableLiveData<String>(storedUserId)
-    }
+    val userId = MutableLiveData<String>()
 
 
     fun init (warehouseDatabase: WarehouseDatabase) {

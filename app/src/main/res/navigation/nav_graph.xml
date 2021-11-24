@@ -11,22 +11,35 @@
         android:label="Login"
         tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_loginFragment_to_ordersFragment"
+            android:id="@+id/action_loginFragment_to_nav_orders"
             app:destination="@id/nav_orders" />
     </fragment>
     <fragment
         android:id="@+id/nav_orders"
         android:name="com.example.warehouse.ui.orders.OrdersFragment"
         android:label="Orders"
-        tools:layout="@layout/fragment_orders"/>
+        tools:layout="@layout/fragment_orders">
+        <action
+            android:id="@+id/action_nav_orders_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/nav_items"
         android:name="com.example.warehouse.ui.items.ItemsFragment"
         android:label="Items"
-        tools:layout="@layout/fragment_items"/>
+        tools:layout="@layout/fragment_items">
+        <action
+            android:id="@+id/action_nav_items_to_addItemFragment"
+            app:destination="@id/addItemFragment" />
+    </fragment>
     <fragment
         android:id="@+id/nav_users"
         android:name="com.example.warehouse.ui.users.UsersFragment"
         android:label="Employees"
         tools:layout="@layout/fragment_users"/>
+    <fragment
+        android:id="@+id/addItemFragment"
+        android:name="com.example.warehouse.ui.items.add.AddItemFragment"
+        android:label="Add Item"
+        tools:layout="@layout/fragment_add_item"/>
 </navigation>

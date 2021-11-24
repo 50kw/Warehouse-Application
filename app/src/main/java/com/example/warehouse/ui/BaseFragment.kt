@@ -9,6 +9,14 @@ import com.example.warehouse.database.WarehouseDatabase
 
 abstract class BaseFragment : Fragment() {
 
+    fun getCurrentUser(): String {
+        return mainActivity.currentUserId
+    }
+
+    fun setCurrentUser(userId: String) {
+        mainActivity.currentUserId = userId
+    }
+
     protected val mainActivity: MainActivity
         get() = activity as MainActivity
 

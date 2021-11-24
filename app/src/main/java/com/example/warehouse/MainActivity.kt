@@ -3,6 +3,7 @@ package com.example.warehouse
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -21,9 +22,12 @@ import com.google.android.material.navigation.NavigationView
 class MainActivity : AppCompatActivity() {
 
     lateinit var navController: NavController
-    private lateinit var toolbar: Toolbar
+    lateinit var toolbar: Toolbar
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var navigationView: NavigationView
+
+    var currentUserId = "none"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +59,7 @@ class MainActivity : AppCompatActivity() {
 
         setupDrawerNavigation()
 
+        //navigationView.setNavigationItemSelectedListener(NavigationViewListener(::onLogout))
     }
 
     private fun setupDrawerNavigation() {
@@ -69,13 +74,13 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(setOf(
             R.id.nav_orders,
             R.id.nav_items,
-            R.id.nav_users
+            R.id.nav_users,
         ), drawerLayout)
 
-        val navView: NavigationView = findViewById(R.id.nav_view)
+        navigationView = findViewById(R.id.nav_view)
 
         setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        navigationView.setupWithNavController(navController)
     }
 
     /*override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -83,6 +88,25 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.main, menu)
         return true
     }*/
+    private fun onLogout() {
+        SharedPrefUtil.setSavedUserId("none")
+        //navController.
+    }
+
+    private class NavigationViewListener(
+        private val onLogout: () -> Unit
+    ): NavigationView.OnNavigationItemSelectedListener {
+        override fun onNavigationItemSelected(item: MenuItem): Boolean {
+            return when (item.itemId) {
+                R.id.nav_logout -> {
+                    onLogout()
+                    false
+                }
+                else -> return false
+            }
+        }
+
+    }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)

@@ -5,7 +5,9 @@ import android.content.SharedPreferences
 
 object SharedPrefUtil {
 
-    private const val PREF_USER_ID = "pref_user_id"
+    private const val PREF_CURRENT_USER_ID = "pref_current_user_id"
+
+    private const val PREF_SAVED_USER_ID = "pref_current_user_id"
 
     private const val DEFAULT_USER_ID = "none"
 
@@ -20,9 +22,11 @@ object SharedPrefUtil {
         sharedPreferences.edit().clear().apply()
     }
 
-    fun getCurrentUserId(): String = getString(PREF_USER_ID, DEFAULT_USER_ID)
+    fun getCurrentUserId(): String = getString(PREF_CURRENT_USER_ID, DEFAULT_USER_ID)
+    fun getSavedUserId(): String = getString(PREF_SAVED_USER_ID, DEFAULT_USER_ID)
 
-    fun setCurrentUserId(userId: String) = setString(PREF_USER_ID, userId)
+    fun setCurrentUserId(userId: String) = setString(PREF_CURRENT_USER_ID, userId)
+    fun setSavedUserId(userId: String) = setString(PREF_SAVED_USER_ID, userId)
 
     private fun setString(name: String, value: String) {
         sharedPreferences.edit().putString(name, value).apply()
