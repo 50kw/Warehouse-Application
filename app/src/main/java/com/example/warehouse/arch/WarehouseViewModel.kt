@@ -1,5 +1,6 @@
 package com.example.warehouse.arch
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -32,11 +33,33 @@ class WarehouseViewModel: ViewModel() {
             }
         }
 
-        viewModelScope.launch {
+        /*viewModelScope.launch {
             repository.getAllOrderWithItemEntities().collect { orders ->
                 orderWithItemEntitiesLiveData.postValue(orders)
             }
+        }*/
+    }
+
+    private val _loginViewStateLiveData = MutableLiveData<String>()
+    val loginViewStateLiveData: LiveData<String>
+        get() = _loginViewStateLiveData
+
+/*    data class LoginViewState(
+        private val userId: String = "",
+        private val loginId: String,
+        private val password: String
+    ) {
+        fun getUserID
+    }*/
+
+    fun userLogin(loginId: String, password: String) {
+        userWithOrderEntityLiveData.value?.forEach {
+            if (it.userEntity.userLoginId == loginId && it.userEntity.userPassword == password) {
+                _loginViewStateLiveData.postValue(it.userEntity.userId)
+                return
+            }
         }
+        _loginViewStateLiveData.postValue("none")
     }
 
     fun insertItem(itemEntity: ItemEntity) {
@@ -61,7 +84,7 @@ class WarehouseViewModel: ViewModel() {
         }
     }
 
-    fun insertOrder(orderEntity: OrderEntity) {
+    /*fun insertOrder(orderEntity: OrderEntity) {
         viewModelScope.launch {
             repository.insertOrder(orderEntity)
 
@@ -81,7 +104,7 @@ class WarehouseViewModel: ViewModel() {
 
             transactionCompleteLiveData.postValue(Event(true))
         }
-    }
+    }*/
 
     fun insertUser(userEntity: UserEntity) {
         viewModelScope.launch {

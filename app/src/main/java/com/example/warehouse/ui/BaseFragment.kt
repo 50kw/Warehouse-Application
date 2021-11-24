@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavDirections
 import com.example.warehouse.MainActivity
+import com.example.warehouse.arch.WarehouseViewModel
 import com.example.warehouse.database.WarehouseDatabase
 
 abstract class BaseFragment : Fragment() {
@@ -11,10 +12,10 @@ abstract class BaseFragment : Fragment() {
     protected val mainActivity: MainActivity
         get() = activity as MainActivity
 
-    /*protected val warehouseDatabase: WarehouseDatabase
-        get() = WarehouseDatabase.getDatabase(requireActivity())*/
+    protected val warehouseDatabase: WarehouseDatabase
+        get() = WarehouseDatabase.getDatabase(requireActivity())
 
-    //protected val sharedViewModel: ToBuyViewModel by activityViewModels()
+    protected val sharedViewModel: WarehouseViewModel by activityViewModels()
 
 
     protected fun navigateViaNavGraph(actionId: Int) {

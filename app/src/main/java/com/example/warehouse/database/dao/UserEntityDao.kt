@@ -24,4 +24,7 @@ interface UserEntityDao {
 
     @Update
     suspend fun updateUser(userEntity: UserEntity)
+
+    @Query("SELECT userId FROM user_entity WHERE userLoginId = :loginId AND userPassword = :password")
+    suspend fun getUserId(loginId: String, password: String): String?
 }

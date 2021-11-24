@@ -11,5 +11,5 @@ class UserWithOrderEntity(
         parentColumn = "userId",
         entityColumn = "userOwnerId"
     )
-    val orderEntity: OrderEntity
+    val orderEntity: OrderEntity?
 )

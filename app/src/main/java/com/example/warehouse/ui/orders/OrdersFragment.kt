@@ -5,13 +5,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import com.example.warehouse.R
+import com.example.warehouse.database.WarehouseDatabase
 import com.example.warehouse.databinding.FragmentOrdersBinding
 import com.example.warehouse.ui.BaseFragment
+import com.example.warehouse.ui.login.LoginViewModel
 
 class OrdersFragment : BaseFragment() {
 
     private var _binding: FragmentOrdersBinding? = null
     private val binding get() = _binding!!
+
+    private val loginViewModel: LoginViewModel by viewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -19,14 +27,24 @@ class OrdersFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentOrdersBinding.inflate(inflater, container, false)
-        Log.i("locaf", "Orders Fragment - onCreateView")
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.i("locaf", "Orders Fragment - onViewCreated")
+        loginViewModel.init(WarehouseDatabase.getDatabase(requireContext()))
+
+        loginViewModel.userId.observe(viewLifecycleOwner, Observer { userId ->
+            if (userId == "none") {
+                navigateViaNavGraph(R.id.loginFragment)
+            } else {
+                binding.textView.text = userId
+            }
+
+            Log.i("userid", userId)
+
+        })
 
     }
 

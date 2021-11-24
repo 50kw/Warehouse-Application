@@ -24,14 +24,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/wrongDataTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="15dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="5dp"
+            android:text="Wrong user id or password"
+            android:textColor="?attr/colorError"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/userIdInputLayout"
+            app:layout_constraintTop_toBottomOf="@+id/appNameTextView" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/userIdInputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
             android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="40dp"
             android:hint="User ID"
+            app:errorEnabled="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appNameTextView">
 
@@ -47,9 +61,10 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="15dp"
             android:layout_marginHorizontal="20dp"
             android:hint="Password"
+            app:errorEnabled="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/userIdInputLayout">
 

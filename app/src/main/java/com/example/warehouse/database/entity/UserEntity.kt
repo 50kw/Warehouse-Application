@@ -10,5 +10,5 @@ data class UserEntity(
     val userPassword: String = "",
     val userFullName: String = "",
     val UserPosition: String = "",
-    val currentOrderId: String = ""
+    val currentOrderId: String? = null
 )

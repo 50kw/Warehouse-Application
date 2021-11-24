@@ -15,6 +15,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.warehouse.arch.WarehouseViewModel
 import com.example.warehouse.database.WarehouseDatabase
+import com.example.warehouse.database.entity.UserEntity
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -33,13 +34,26 @@ class MainActivity : AppCompatActivity() {
         val viewModel: WarehouseViewModel by viewModels()
         viewModel.init(WarehouseDatabase.getDatabase(this))
 
+        /*val userEntity = UserEntity(userId = "admin",
+            userLoginId = "admin",
+            userPassword = "admin",
+            userFullName = "admin",
+            UserPosition = "admin"
+        )
+
+        viewModel.insertUser(userEntity)*/
+
         //deleteDatabase("warehouse-database")
 
-        setupDrawerNavigation()
+        //SharedPrefUtil.setCurrentUserId("none")
 
-        if (SharedPrefUtil.getCurrentUserId() == "none") {
-            navController.navigate(R.id.loginFragment)
-        }
+       /* if (SharedPrefUtil.getCurrentUserId() == "tom") {
+            val fragment =
+                supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+            findNavController(fragment).navigate(R.id.loginFragment)
+        }*/
+
+        setupDrawerNavigation()
 
     }
 
