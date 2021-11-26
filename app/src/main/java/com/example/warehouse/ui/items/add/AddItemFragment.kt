@@ -1,14 +1,11 @@
 package com.example.warehouse.ui.items.add
 
-import android.content.ClipData
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.core.text.isDigitsOnly
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import com.example.warehouse.R
 import com.example.warehouse.database.entity.ItemEntity
 import com.example.warehouse.databinding.FragmentAddItemBinding
 import com.example.warehouse.ui.BaseFragment
@@ -21,6 +18,9 @@ class AddItemFragment : BaseFragment() {
 
     private var _binding: FragmentAddItemBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var selectedItemEntity : ItemEntity
+    private var inEditMode = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,24 +38,58 @@ class AddItemFragment : BaseFragment() {
             if (fieldsFilled()) saveItemEntityToDatabase(generateItemEntity())
         }
 
+        binding.nameEditText.requestFocus()
+
         itemsViewModel.transactionCompleteLiveData.observe(viewLifecycleOwner) { event ->
-            /*event.getContent()?.let {
-
-            }*/
-
-            Toast.makeText(requireActivity(), "Item saved!", Toast.LENGTH_SHORT).show()
-            binding.nameEditText.text = null
-            binding.quantityEditText.text = null
-            binding.placeEditText.text = null
-
-            binding.nameEditText.requestFocus()
+            event.getContent()?.let { complete ->
+                if (complete) {
+                    Toast.makeText(requireActivity(), "Item saved!", Toast.LENGTH_SHORT).show()
+                    resetFields()
+                }
+            }
         }
+
+        itemsViewModel.itemEntityEditIdLiveData.observe(viewLifecycleOwner) { itemEntityId ->
+            itemEntityId?.let {
+                setupEditMode(itemEntityId)
+            }
+        }
+
+    }
+
+    private fun resetFields() {
+        binding.nameEditText.text = null
+        binding.quantityEditText.text = null
+        binding.placeEditText.text = null
+        binding.nameEditText.requestFocus()
+    }
+
+    private fun setupEditMode(itemId: String) {
+        inEditMode = true
+        selectedItemEntity = itemsViewModel.findItemEntity(itemId)
+        setHasOptionsMenu(true)
+
+        binding.saveButton.text = "Update"
+        mainActivity.supportActionBar?.title = "Update item"
+
+        binding.nameEditText.setText(selectedItemEntity.itemName)
+        binding.quantityEditText.setText(selectedItemEntity.itemCount.toString())
+        binding.placeEditText.setText(selectedItemEntity.itemPlace)
+        binding.nameEditText.requestFocus()
     }
 
     private fun generateItemEntity() : ItemEntity {
         val name = binding.nameEditText.text.toString().trim()
         val quantity = try {binding.quantityEditText.text.toString().toInt()} catch (e: Exception) {0}
         val place = binding.placeEditText.text.toString().trim()
+
+        if (inEditMode) {
+            return selectedItemEntity!!.copy(
+                itemName = name,
+                itemCount = quantity,
+                itemPlace = place
+            )
+        }
 
         return ItemEntity(
             itemId = UUID.randomUUID().toString(),
@@ -101,11 +135,31 @@ class AddItemFragment : BaseFragment() {
     }
 
     private fun saveItemEntityToDatabase(itemEntity: ItemEntity) {
-        itemsViewModel.insertItem(itemEntity)
+        if (inEditMode) {
+            itemsViewModel.updateItem(itemEntity)
+            navigateUp()
+        } else {
+            itemsViewModel.insertItem(itemEntity)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_delete, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == R.id.menuDeleteItem) {
+            itemsViewModel.deleteItem(selectedItemEntity)
+            navigateUp()
+            true
+        } else {
+            super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        itemsViewModel.itemEntityEditIdLiveData.value = null
         _binding = null
     }
 }

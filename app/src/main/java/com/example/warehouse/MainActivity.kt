@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             userLoginId = "admin",
             userPassword = "admin",
             userFullName = "admin",
-            UserPosition = "admin"
+            userPosition = "admin"
         )
 
         viewModel.insertUser(userEntity)*/
@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         //deleteDatabase("warehouse-database")
 
         //SharedPrefUtil.setCurrentUserId("none")
+        //SharedPrefUtil.setSavedUserId("none")
 
        /* if (SharedPrefUtil.getCurrentUserId() == "tom") {
             val fragment =

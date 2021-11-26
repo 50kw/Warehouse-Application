@@ -5,10 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.warehouse.arch.Event
-import com.example.warehouse.arch.WarehouseRepository
 import com.example.warehouse.database.WarehouseDatabase
 import com.example.warehouse.database.entity.ItemEntity
-import com.example.warehouse.ui.login.LoginRepository
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -18,6 +16,8 @@ class ItemsViewModel : ViewModel() {
     val itemEntitiesLiveData = MutableLiveData<List<ItemEntity>>()
 
     val transactionCompleteLiveData = MutableLiveData<Event<Boolean>>()
+
+    val itemEntityEditIdLiveData = MutableLiveData<String>()
 
     fun init (warehouseDatabase: WarehouseDatabase) {
         repository = ItemsRepository(warehouseDatabase)
@@ -30,6 +30,12 @@ class ItemsViewModel : ViewModel() {
             }
         }
 
+    }
+
+    fun findItemEntity(itemId : String) : ItemEntity {
+        return itemEntitiesLiveData.value?.find { itemEntity ->
+            itemEntity.itemId == itemId
+        }?: ItemEntity()
     }
 
     private val _itemsViewStateLiveData = MutableLiveData<ItemsViewState>()
@@ -66,6 +72,8 @@ class ItemsViewModel : ViewModel() {
     fun deleteItem(itemEntity: ItemEntity) {
         viewModelScope.launch {
             repository.deleteItem(itemEntity)
+
+            itemEntityEditIdLiveData.value = null
         }
     }
 

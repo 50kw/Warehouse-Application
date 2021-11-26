@@ -23,8 +23,7 @@
             android:src="@drawable/multiple_boxes"
             app:layout_constraintEnd_toStartOf="@+id/imageView2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="Item Quantity" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -34,8 +33,7 @@
             android:src="@drawable/single_box"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="Item Name" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageView24"
@@ -46,8 +44,7 @@
             android:src="@drawable/shelf_with_boxes"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="Item Place" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/nameTextView"

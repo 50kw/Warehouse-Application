@@ -36,10 +36,19 @@
         android:id="@+id/nav_users"
         android:name="com.example.warehouse.ui.users.UsersFragment"
         android:label="Employees"
-        tools:layout="@layout/fragment_users"/>
+        tools:layout="@layout/fragment_users">
+        <action
+            android:id="@+id/action_nav_users_to_addUserFragment"
+            app:destination="@id/addUserFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addItemFragment"
         android:name="com.example.warehouse.ui.items.add.AddItemFragment"
         android:label="Add Item"
         tools:layout="@layout/fragment_add_item"/>
+    <fragment
+        android:id="@+id/addUserFragment"
+        android:name="com.example.warehouse.ui.users.add.AddUserFragment"
+        android:label="AddUserFragment"
+        tools:layout="@layout/fragment_add_user"/>
 </navigation>

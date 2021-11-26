@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:paddingBottom="30dp" >
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/nameLabelTextView"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Full Name"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:textColorHint="?attr/colorOnBackground"
+            app:hintTextColor="?attr/colorOnBackground"
+            app:errorEnabled="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/nameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:textColor="?attr/colorOnBackground" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/loginIdLabelTextView"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:hint="Login ID"
+            android:textColorHint="?attr/colorOnBackground"
+            app:errorEnabled="true"
+            app:hintTextColor="?attr/colorOnBackground"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nameLabelTextView">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/loginIdEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:textColor="?attr/colorOnBackground" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordLabelTextView"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:hint="Password"
+            android:textColorHint="?attr/colorOnBackground"
+            app:errorEnabled="true"
+            app:hintTextColor="?attr/colorOnBackground"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginIdLabelTextView">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textVisiblePassword"
+                android:textColor="?attr/colorOnBackground" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/typeLabelTextView"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:hint="Type"
+            android:textColorHint="?attr/colorOnBackground"
+            app:errorEnabled="true"
+            app:hintTextColor="?attr/colorOnBackground"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/passwordLabelTextView">
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/typeEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:textColor="?attr/colorOnBackground" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/saveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:text="Save"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/typeLabelTextView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

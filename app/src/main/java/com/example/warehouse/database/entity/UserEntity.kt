@@ -9,6 +9,6 @@ data class UserEntity(
     val userLoginId: String = "",
     val userPassword: String = "",
     val userFullName: String = "",
-    val UserPosition: String = "",
+    val userPosition: String = "",
     val currentOrderId: String? = null
 )

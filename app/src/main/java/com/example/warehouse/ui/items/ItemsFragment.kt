@@ -6,6 +6,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.warehouse.R
 import com.example.warehouse.database.WarehouseDatabase
+import com.example.warehouse.database.entity.ItemEntity
 import com.example.warehouse.databinding.FragmentItemsBinding
 import com.example.warehouse.ui.BaseFragment
 
@@ -34,13 +35,18 @@ class ItemsFragment : BaseFragment(){
 
         itemsViewModel.init(WarehouseDatabase.getDatabase(requireContext()))
 
-        val controller = ItemsEpoxyController()
+        val controller = ItemsEpoxyController(::onItemSelected)
         binding.epoxyRecyclerView.setController(controller)
 
         itemsViewModel.itemsViewStateLiveData.observe(viewLifecycleOwner) { viewState ->
             controller.itemsViewState = viewState
         }
 
+    }
+
+    private fun onItemSelected(itemId: String) {
+        itemsViewModel.itemEntityEditIdLiveData.postValue(itemId)
+        navigateViaNavGraph(ItemsFragmentDirections.actionNavItemsToAddItemFragment())
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

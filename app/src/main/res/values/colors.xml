@@ -11,5 +11,40 @@
     <color name="gray">#7E7E7E</color>
     <color name="gray_light_1">#A1A1A1</color>
     <color name="gray_light_2">#C8C7C7</color>
+    <color name="gray_light_3">#E8E7E7</color>
+    <color name="gray_light_4">#E9F3F3F3</color>
+
+    <color name="red_light_1">#ECBEBE</color>
+    <color name="red_light_2">#ECECEC</color>
+    <color name="red_light_3">#ECECEC</color>
+    <color name="red_light_4">#EAEAEA</color>
+
+    <color name="orange_light_1">#FFAB91</color>
+
+    <color name="yellow_light_4">#FFC578</color>
+
+    <color name="color_accent">#4d342b</color>
+
+    <color name="primaryLightColor">@color/gray_100</color>
+    <color name="primaryColor">@color/gray_700</color>
+    <color name="primaryDarkColor">@color/gray_800</color>
+    <color name="secondaryLightColor">@color/rustLightColor</color>
+    <color name="secondaryColor">@color/rustColor</color>
+    <color name="secondaryDarkColor">@color/rustDarkColor</color>
+
+    <color name="gray_50">#FAFAFA</color>
+    <color name="gray_100">#F5F5F5</color>
+    <color name="gray_200">#EEEEEE</color>
+    <color name="gray_300">#E0E0E0</color>
+    <color name="gray_400">#BDBDBD</color>
+    <color name="gray_500">#9E9E9E</color>
+    <color name="gray_600">#757575</color>
+    <color name="gray_700">#616161</color>
+    <color name="gray_800">#424242</color>
+    <color name="gray_900">#212121</color>
+
+    <color name="rustColor">#753023</color>
+    <color name="rustLightColor">#a85c4b</color>
+    <color name="rustDarkColor">#450300</color>
 
 </resources>

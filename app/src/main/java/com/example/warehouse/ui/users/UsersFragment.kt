@@ -23,6 +23,7 @@ class UsersFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        navigateViaNavGraph(UsersFragmentDirections.actionNavUsersToAddUserFragment())
     }
 
     override fun onDestroy() {
