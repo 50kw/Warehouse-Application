@@ -15,19 +15,19 @@
 
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/loginIdImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="70dp"
             android:src="@drawable/multiple_boxes"
-            app:layout_constraintEnd_toStartOf="@+id/imageView2"
+            app:layout_constraintEnd_toStartOf="@+id/fullNameImageView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:contentDescription="Item Quantity" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/fullNameImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -45,7 +45,7 @@
             android:layout_marginTop="8dp"
             android:src="@drawable/shelf_with_boxes"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintStart_toEndOf="@+id/fullNameImageView"
             app:layout_constraintTop_toTopOf="parent"
             android:contentDescription="Item Place" />
 
@@ -59,9 +59,9 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/imageView2"
-            app:layout_constraintStart_toStartOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+            app:layout_constraintEnd_toEndOf="@+id/fullNameImageView"
+            app:layout_constraintStart_toStartOf="@+id/fullNameImageView"
+            app:layout_constraintTop_toBottomOf="@+id/fullNameImageView" />
 
         <TextView
             android:id="@+id/countTextView"
@@ -73,9 +73,9 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/imageView3"
-            app:layout_constraintStart_toStartOf="@+id/imageView3"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+            app:layout_constraintEnd_toEndOf="@+id/loginIdImageView"
+            app:layout_constraintStart_toStartOf="@+id/loginIdImageView"
+            app:layout_constraintTop_toBottomOf="@+id/loginIdImageView" />
 
         <TextView
             android:id="@+id/placeTextView"

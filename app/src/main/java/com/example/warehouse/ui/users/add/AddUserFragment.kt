@@ -103,9 +103,6 @@ class AddUserFragment : BaseFragment() {
         if (type.isEmpty()) {
             binding.typeLabelTextView.error = "Required field"
             failed = true
-        } else if (type != "Employee" || type != "Admin") {
-            binding.typeLabelTextView.error = "Wrong user type"
-            failed = true
         } else {
             binding.typeLabelTextView.error = null
         }

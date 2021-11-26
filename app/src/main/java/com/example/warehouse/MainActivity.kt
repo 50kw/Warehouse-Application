@@ -1,5 +1,6 @@
 package com.example.warehouse
 
+import android.R.id
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +19,10 @@ import com.example.warehouse.arch.WarehouseViewModel
 import com.example.warehouse.database.WarehouseDatabase
 import com.example.warehouse.database.entity.UserEntity
 import com.google.android.material.navigation.NavigationView
+import android.R.id.toggle
+
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -60,7 +65,7 @@ class MainActivity : AppCompatActivity() {
 
         setupDrawerNavigation()
 
-        //navigationView.setNavigationItemSelectedListener(NavigationViewListener(::onLogout))
+        navigationView.setNavigationItemSelectedListener(NavigationViewListener(::onLogout))
     }
 
     private fun setupDrawerNavigation() {
@@ -91,7 +96,16 @@ class MainActivity : AppCompatActivity() {
     }*/
     private fun onLogout() {
         SharedPrefUtil.setSavedUserId("none")
-        //navController.
+        SharedPrefUtil.setCurrentUserId("none")
+        currentUserId = "none"
+        navController.navigate(R.id.nav_orders)
+        drawerLayout.closeDrawers()
+        setDrawerLocked(true)
+    }
+
+    fun setDrawerLocked(locked: Boolean) {
+        val lockMode = if (locked) DrawerLayout.LOCK_MODE_LOCKED_CLOSED else DrawerLayout.LOCK_MODE_UNLOCKED
+        drawerLayout.setDrawerLockMode(lockMode)
     }
 
     private class NavigationViewListener(

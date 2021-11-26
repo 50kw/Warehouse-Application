@@ -43,8 +43,8 @@ class OrdersFragment : BaseFragment() {
         }
 
         if (userId == "none") {
-            //navigateViaNavGraph(R.id.loginFragment)
             findNavController().navigate(R.id.loginFragment)
+
         } else {
             binding.textView.text = userId
         }

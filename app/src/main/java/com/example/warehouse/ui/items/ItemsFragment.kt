@@ -3,10 +3,8 @@ package com.example.warehouse.ui.items
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import com.example.warehouse.R
 import com.example.warehouse.database.WarehouseDatabase
-import com.example.warehouse.database.entity.ItemEntity
 import com.example.warehouse.databinding.FragmentItemsBinding
 import com.example.warehouse.ui.BaseFragment
 
@@ -50,11 +48,11 @@ class ItemsFragment : BaseFragment(){
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_items_fragment, menu)
+        inflater.inflate(R.menu.menu_add, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return if (item.itemId == R.id.menuAddItem) {
+        return if (item.itemId == R.id.menuAdd) {
             navigateViaNavGraph(ItemsFragmentDirections.actionNavItemsToAddItemFragment())
             true
         } else {

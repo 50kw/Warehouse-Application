@@ -25,6 +25,8 @@ class UsersViewModel : ViewModel() {
         viewModelScope.launch {
             repository.getAllUserWithOrderEntity().collect { users ->
                 userWithOrderEntityLiveData.postValue(users)
+
+                updateUsersViewState(users)
             }
         }
 
@@ -43,7 +45,7 @@ class UsersViewModel : ViewModel() {
         )
     }
 
-    private fun updateUsersViewState(items: List<UserEntity>) {
+    private fun updateUsersViewState(items: List<UserWithOrderEntity>) {
         val dataList = ArrayList<UsersViewState.DataItem<*>>()
 
         items.forEach { item ->
