@@ -8,5 +8,6 @@ data class OrderEntity(
     @PrimaryKey val orderId: String = "",
     val orderName: String = "",
     val orderDescription: String = "",
+    val orderStatus: String = "Pending",
     val userOwnerId: String = ""
 )

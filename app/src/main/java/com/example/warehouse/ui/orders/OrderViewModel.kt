@@ -1,11 +1,11 @@
 package com.example.warehouse.ui.orders
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.warehouse.SharedPrefUtil
 import com.example.warehouse.arch.Event
-import com.example.warehouse.arch.WarehouseRepository
 import com.example.warehouse.database.WarehouseDatabase
 import com.example.warehouse.database.entity.ItemEntity
 import com.example.warehouse.database.entity.OrderEntity
@@ -35,19 +35,34 @@ class OrderViewModel : ViewModel() {
         viewModelScope.launch {
             repository.getAllOrderWithItemEntities().collect { orders ->
                 orderWithItemEntitiesLiveData.postValue(orders)
+
+                updateOrdersViewState(orders)
             }
         }
     }
 
-    /*fun userLogin(loginId: String, password: String) {
-        userWithOrderEntityLiveData.value?.forEach {
-            if (it.userEntity.userLoginId == loginId && it.userEntity.userPassword == password) {
-                _loginViewStateLiveData.postValue(it.userEntity.userId)
-                return
-            }
+    private val _ordersViewStateLiveData = MutableLiveData<OrdersViewState>()
+    val ordersViewStateLiveData: LiveData<OrdersViewState>
+        get() = _ordersViewStateLiveData
+
+    data class OrdersViewState(
+        val dataList: List<DataItem<*>> = emptyList(),
+        val isLoading: Boolean = false
+    ) {
+        data class DataItem<T> (
+            val data: T
+        )
+    }
+
+    private fun updateOrdersViewState(orders: List<OrderWithItemEntities>) {
+        val dataList = ArrayList<OrdersViewState.DataItem<*>>()
+
+        orders.forEach { item ->
+            dataList.add(OrdersViewState.DataItem(item))
         }
-        _loginViewStateLiveData.postValue("none")
-    }*/
+
+        _ordersViewStateLiveData.postValue(OrdersViewState(dataList = dataList, isLoading = false))
+    }
 
     fun insertOrder(orderEntity: OrderEntity) {
         viewModelScope.launch {

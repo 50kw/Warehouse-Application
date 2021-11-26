@@ -2,9 +2,9 @@ package com.example.warehouse.ui.orders
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.TextView
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -14,13 +14,14 @@ import com.example.warehouse.database.WarehouseDatabase
 import com.example.warehouse.databinding.FragmentOrdersBinding
 import com.example.warehouse.ui.BaseFragment
 import com.example.warehouse.ui.login.LoginViewModel
+import com.example.warehouse.ui.users.UsersFragmentDirections
 
 class OrdersFragment : BaseFragment() {
 
     private var _binding: FragmentOrdersBinding? = null
     private val binding get() = _binding!!
 
-    //private val loginViewModel: LoginViewModel by viewModels()
+    val orderViewModel: OrderViewModel by activityViewModels()
 
 
     override fun onCreateView(
@@ -28,6 +29,15 @@ class OrdersFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val savedUserId = SharedPrefUtil.getSavedUserId()
+        var userId = getCurrentUser()
+        if (savedUserId != "none") {
+            userId = savedUserId
+        }
+        if (userId == "none") {
+            navigateViaNavGraph(OrdersFragmentDirections.actionNavOrdersToLoginFragment(true))
+        }
+
         _binding = FragmentOrdersBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -35,19 +45,29 @@ class OrdersFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val savedUserId = SharedPrefUtil.getSavedUserId()
-        var userId = getCurrentUser()
+        orderViewModel.init(WarehouseDatabase.getDatabase(requireContext()))
 
-        if (savedUserId != "none") {
-            userId = savedUserId
+        val controller = OrderEpoxyController(::onOrderSelected)
+        binding.epoxyRecyclerView.setController(controller)
+
+        orderViewModel.ordersViewStateLiveData.observe(viewLifecycleOwner) { viewState ->
+            controller.ordersViewState = viewState
         }
+    }
 
-        if (userId == "none") {
-            findNavController().navigate(R.id.loginFragment)
+    private fun onOrderSelected(orderId: String) {
 
-        } else {
-            binding.textView.text = userId
-        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_add, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == R.id.menuAdd) {
+            navigateViaNavGraph(UsersFragmentDirections.actionNavUsersToAddUserFragment())
+            true
+        } else super.onOptionsItemSelected(item)
 
     }
 

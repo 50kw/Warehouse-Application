@@ -19,6 +19,7 @@
         <entry key="..\:/Users/pofke/Desktop/CodingProjects/Kotlin_Android/Warehouse/app/src/main/res/layout/app_bar_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/pofke/Desktop/CodingProjects/Kotlin_Android/Warehouse/app/src/main/res/layout/content_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/pofke/Desktop/CodingProjects/Kotlin_Android/Warehouse/app/src/main/res/layout/fragment_add_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/pofke/Desktop/CodingProjects/Kotlin_Android/Warehouse/app/src/main/res/layout/fragment_add_order.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/pofke/Desktop/CodingProjects/Kotlin_Android/Warehouse/app/src/main/res/layout/fragment_add_user.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/pofke/Desktop/CodingProjects/Kotlin_Android/Warehouse/app/src/main/res/layout/fragment_items.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/pofke/Desktop/CodingProjects/Kotlin_Android/Warehouse/app/src/main/res/layout/fragment_login.xml" value="0.36666666666666664" />
@@ -29,8 +30,10 @@
         <entry key="..\:/Users/pofke/Desktop/CodingProjects/Kotlin_Android/Warehouse/app/src/main/res/layout/model_item_entity_update.xml" value="0.5" />
         <entry key="..\:/Users/pofke/Desktop/CodingProjects/Kotlin_Android/Warehouse/app/src/main/res/layout/model_loading.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/pofke/Desktop/CodingProjects/Kotlin_Android/Warehouse/app/src/main/res/layout/model_no_data_found.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/pofke/Desktop/CodingProjects/Kotlin_Android/Warehouse/app/src/main/res/layout/model_user_entity.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/pofke/Desktop/CodingProjects/Kotlin_Android/Warehouse/app/src/main/res/layout/model_order_entity.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/pofke/Desktop/CodingProjects/Kotlin_Android/Warehouse/app/src/main/res/layout/model_user_entity.xml" value="0.33" />
         <entry key="..\:/Users/pofke/Desktop/CodingProjects/Kotlin_Android/Warehouse/app/src/main/res/layout/nav_header.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/pofke/Desktop/CodingProjects/Kotlin_Android/Warehouse/app/src/main/res/layout/navigation_header.xml" value="0.23052536231884058" />
         <entry key="..\:/Users/pofke/Desktop/CodingProjects/Kotlin_Android/Warehouse/app/src/main/res/layout/navigation_view.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/pofke/Desktop/CodingProjects/Kotlin_Android/Warehouse/app/src/main/res/menu/main_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/pofke/Desktop/CodingProjects/Kotlin_Android/Warehouse/app/src/main/res/menu/menu_delete.xml" value="0.36666666666666664" />

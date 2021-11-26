@@ -2,18 +2,18 @@ package com.example.warehouse.ui.login
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.warehouse.R
 import com.example.warehouse.SharedPrefUtil
 import com.example.warehouse.database.WarehouseDatabase
 import com.example.warehouse.databinding.FragmentLoginBinding
 import com.example.warehouse.ui.BaseFragment
 import com.example.warehouse.ui.orders.OrderViewModel
+import com.example.warehouse.ui.users.UsersFragmentDirections
 
 class LoginFragment : BaseFragment() {
 
@@ -21,6 +21,11 @@ class LoginFragment : BaseFragment() {
     private val binding get() = _binding!!
 
     private val loginViewModel: LoginViewModel by viewModels()
+
+    private val safeArgs: LoginFragmentArgs by navArgs()
+    private val login: Boolean by lazy {
+        safeArgs.login
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +39,18 @@ class LoginFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setHasOptionsMenu(true)
+
         loginViewModel.init(WarehouseDatabase.getDatabase(requireContext()))
+
+        setDrawerLocked(true)
+
+        if (!login) {
+            SharedPrefUtil.setSavedUserId("none")
+            SharedPrefUtil.setCurrentUserId("none")
+            setCurrentUser("none")
+        }
+
 
         //findNavController().popBackStack()
         /*val actionBar = requireActivity().actionBar
@@ -97,6 +113,18 @@ class LoginFragment : BaseFragment() {
 
     private fun login(userId: String, password: String) {
         loginViewModel.getUserId(userId, password)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_add, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == R.id.menuAdd) {
+            navigateViaNavGraph(LoginFragmentDirections.actionLoginFragmentToNavUsers())
+            true
+        } else super.onOptionsItemSelected(item)
+
     }
 
     override fun onDestroy() {

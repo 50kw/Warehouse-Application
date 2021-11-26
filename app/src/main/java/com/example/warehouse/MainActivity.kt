@@ -1,9 +1,8 @@
 package com.example.warehouse
 
-import android.R.id
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
@@ -17,10 +16,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.warehouse.arch.WarehouseViewModel
 import com.example.warehouse.database.WarehouseDatabase
-import com.example.warehouse.database.entity.UserEntity
 import com.google.android.material.navigation.NavigationView
-import android.R.id.toggle
-
 
 
 
@@ -28,9 +24,9 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var navController: NavController
     lateinit var toolbar: Toolbar
-    private lateinit var drawerLayout: DrawerLayout
-    private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var navigationView: NavigationView
+    lateinit var drawerLayout: DrawerLayout
+    lateinit var appBarConfiguration: AppBarConfiguration
+    lateinit var navigationView: NavigationView
 
     var currentUserId = "none"
 
@@ -65,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 
         setupDrawerNavigation()
 
-        navigationView.setNavigationItemSelectedListener(NavigationViewListener(::onLogout))
+        //navigationView.setNavigationItemSelectedListener(NavigationViewListener(::onLogout))
     }
 
     private fun setupDrawerNavigation() {
@@ -113,10 +109,10 @@ class MainActivity : AppCompatActivity() {
     ): NavigationView.OnNavigationItemSelectedListener {
         override fun onNavigationItemSelected(item: MenuItem): Boolean {
             return when (item.itemId) {
-                R.id.nav_logout -> {
+                /*R.id.nav_logout -> {
                     onLogout()
                     false
-                }
+                }*/
                 else -> return false
             }
         }
