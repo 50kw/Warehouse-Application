@@ -45,9 +45,11 @@ class OrdersFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setHasOptionsMenu(true)
+
         orderViewModel.init(WarehouseDatabase.getDatabase(requireContext()))
 
-        val controller = OrderEpoxyController(::onOrderSelected)
+        val controller = OrderEpoxyController(::onOrderSelected, ::onMoreSelected)
         binding.epoxyRecyclerView.setController(controller)
 
         orderViewModel.ordersViewStateLiveData.observe(viewLifecycleOwner) { viewState ->
@@ -55,8 +57,15 @@ class OrdersFragment : BaseFragment() {
         }
     }
 
-    private fun onOrderSelected(orderId: String) {
+    private fun onMoreSelected(orderId: String) {
+        orderViewModel.orderEntityEditIdLiveData.postValue(orderId)
+        navigateViaNavGraph(OrdersFragmentDirections.actionNavOrdersToOrderInformationFragment())
+    }
 
+
+    private fun onOrderSelected(orderId: String) {
+        orderViewModel.orderEntityEditIdLiveData.postValue(orderId)
+        navigateViaNavGraph(OrdersFragmentDirections.actionNavOrdersToAddOrderFragment())
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -65,7 +74,7 @@ class OrdersFragment : BaseFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return if (item.itemId == R.id.menuAdd) {
-            navigateViaNavGraph(UsersFragmentDirections.actionNavUsersToAddUserFragment())
+            navigateViaNavGraph(OrdersFragmentDirections.actionNavOrdersToAddOrderFragment())
             true
         } else super.onOptionsItemSelected(item)
 

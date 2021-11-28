@@ -17,13 +17,13 @@
             android:id="@+id/orderNameImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
+            android:layout_marginStart="90dp"
             android:layout_marginTop="8dp"
+            android:contentDescription="User Name"
             android:src="@drawable/ic_content_paste_32"
-            app:tint="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="User Name" />
+            app:tint="@color/black" />
 
         <TextView
             android:id="@+id/orderNameTextView"
@@ -43,13 +43,14 @@
             android:id="@+id/orderStatusImageView"
             android:layout_width="32dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="100dp"
+            android:contentDescription="User ID"
             android:src="@drawable/ic_question_mark_32"
-            app:tint="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/moreImageView"
+            app:layout_constraintStart_toEndOf="@+id/orderNameImageView"
             app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="User ID" />
+            app:tint="@color/black" />
 
         <TextView
             android:id="@+id/orderStatusTextView"
@@ -58,12 +59,22 @@
             android:gravity="center"
             android:padding="8dp"
             android:text="TextView"
-            android:textColor="@color/rustLightColor"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/orderStatusImageView"
             app:layout_constraintStart_toStartOf="@+id/orderStatusImageView"
             app:layout_constraintTop_toBottomOf="@+id/orderStatusImageView" />
+
+        <ImageView
+            android:id="@+id/moreImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_arrow_forward_ios_32"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/gray_400"
+            app:tint="@color/black" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

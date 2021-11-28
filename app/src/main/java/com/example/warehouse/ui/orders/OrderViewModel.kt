@@ -23,6 +23,8 @@ class OrderViewModel : ViewModel() {
 
     val orderTransactionCompleteLiveData = MutableLiveData<Event<Boolean>>()
 
+    val orderEntityEditIdLiveData = MutableLiveData<String>()
+
     val userId: MutableLiveData<String> by lazy {
         MutableLiveData<String>(storedUserId)
     }
@@ -39,6 +41,12 @@ class OrderViewModel : ViewModel() {
                 updateOrdersViewState(orders)
             }
         }
+    }
+
+    fun findItemEntity(orderId : String) : OrderWithItemEntities {
+        return orderWithItemEntitiesLiveData.value?.find { orderWithItemEntities ->
+            orderWithItemEntities.orderEntity.orderId == orderId
+        }?: OrderWithItemEntities(OrderEntity(), emptyList())
     }
 
     private val _ordersViewStateLiveData = MutableLiveData<OrdersViewState>()
@@ -75,6 +83,8 @@ class OrderViewModel : ViewModel() {
     fun deleteOrder(orderEntity: OrderEntity) {
         viewModelScope.launch {
             repository.deleteOrder(orderEntity)
+
+            orderEntityEditIdLiveData.value = null
         }
     }
 

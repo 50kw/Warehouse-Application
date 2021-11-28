@@ -30,6 +30,12 @@
         <action
             android:id="@+id/action_nav_orders_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_nav_orders_to_addOrderFragment"
+            app:destination="@id/addOrderFragment" />
+        <action
+            android:id="@+id/action_nav_orders_to_orderInformationFragment"
+            app:destination="@id/orderInformationFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_items"
@@ -59,4 +65,14 @@
         android:name="com.example.warehouse.ui.users.add.AddUserFragment"
         android:label="AddUserFragment"
         tools:layout="@layout/fragment_add_user"/>
+    <fragment
+        android:id="@+id/addOrderFragment"
+        android:name="com.example.warehouse.ui.orders.add.AddOrderFragment"
+        android:label="AddOrderFragment"
+        tools:layout="@layout/fragment_add_order"/>
+    <fragment
+        android:id="@+id/orderInformationFragment"
+        android:name="com.example.warehouse.ui.orders.information.OrderInformationFragment"
+        android:label="OrderInformationFragment"
+        tools:layout="@layout/fragment_order_information"/>
 </navigation>

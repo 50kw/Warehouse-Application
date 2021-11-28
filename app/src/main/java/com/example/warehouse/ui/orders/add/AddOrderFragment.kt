@@ -1,26 +1,26 @@
 package com.example.warehouse.ui.orders.add
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ArrayAdapter
+import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import com.example.warehouse.Constants
 import com.example.warehouse.R
-import com.example.warehouse.database.entity.UserEntity
+import com.example.warehouse.database.entity.ItemEntity
+import com.example.warehouse.database.entity.OrderEntity
 import com.example.warehouse.databinding.FragmentAddOrderBinding
-import com.example.warehouse.databinding.FragmentAddUserBinding
 import com.example.warehouse.ui.BaseFragment
 import com.example.warehouse.ui.orders.OrderViewModel
-import com.example.warehouse.ui.users.UsersViewModel
 import java.util.*
 
 class AddOrderFragment : BaseFragment() {
-    /*val ordersViewModel: OrderViewModel by activityViewModels()
+    val ordersViewModel: OrderViewModel by activityViewModels()
 
     private var _binding: FragmentAddOrderBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var selectedOrderEntity: OrderEntity
+    private var inEditMode = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,51 +34,93 @@ class AddOrderFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val userTypes = resources.getStringArray(R.array.user_types_array)
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, userTypes)
-        binding.typeEditText.setAdapter(adapter)
-
         binding.saveButton.setOnClickListener {
-            if (fieldsFilled()) saveUserEntityToDatabase(generateUserEntity())
+            if (fieldsFilled()) saveOrderEntityToDatabase(generateOrderEntity())
         }
 
-        ordersViewModel.transactionCompleteLiveData.observe(viewLifecycleOwner) { event ->
-            *//*event.getContent()?.let {
+        binding.nameEditText.requestFocus()
 
-            }*//*
+        ordersViewModel.orderTransactionCompleteLiveData.observe(viewLifecycleOwner) { event ->
+            event.getContent()?.let { complete ->
+                if (complete) {
+                    Toast.makeText(requireActivity(), "Order saved!", Toast.LENGTH_SHORT).show()
+                    resetFields()
+                }
+            }
 
-            Toast.makeText(requireActivity(), "User saved!", Toast.LENGTH_SHORT).show()
-            binding.nameEditText.text = null
-            binding.loginIdEditText.text = null
-            binding.passwordEditText.text = null
-            binding.typeEditText.text = null
-
-            binding.nameEditText.requestFocus()
         }
+
+        ordersViewModel.orderEntityEditIdLiveData.observe(viewLifecycleOwner) { itemEntityId ->
+            itemEntityId?.let {
+                setupEditMode(itemEntityId)
+            }
+        }
+
     }
 
-    private fun generateUserEntity() : UserEntity {
-        val name = binding.nameEditText.text.toString().trim()
-        val loginId = binding.loginIdEditText.text.toString().trim()
-        val password = binding.passwordEditText.text.toString().trim()
-        val type = binding.typeEditText.text.toString().trim()
+    private fun resetFields() {
+        binding.nameEditText.text = null
+        binding.descriptionEditText.text = null
+        binding.nameEditText.requestFocus()
+    }
 
-        return UserEntity(
-            userId = UUID.randomUUID().toString(),
-            userFullName = name,
-            userLoginId = loginId,
-            userPassword = password,
-            userPosition = type
+    private fun setupEditMode(orderId: String) {
+        inEditMode = true
+        selectedOrderEntity = ordersViewModel.findItemEntity(orderId).orderEntity
+        setHasOptionsMenu(true)
+
+        binding.saveButton.text = "Update"
+        mainActivity.supportActionBar?.title = "Update order"
+
+        binding.nameEditText.setText(selectedOrderEntity.orderName)
+        binding.descriptionEditText.setText(selectedOrderEntity.orderDescription)
+        binding.statusRadioGroup.check(getOrderStatusRadioButton(selectedOrderEntity.orderStatus))
+        binding.nameEditText.requestFocus()
+    }
+
+    private fun generateOrderEntity(): OrderEntity {
+        val name = binding.nameEditText.text.toString().trim()
+        val description = binding.descriptionEditText.text.toString().trim()
+
+        if (inEditMode) {
+            return selectedOrderEntity!!.copy(
+                orderName = name,
+                orderDescription = description,
+                orderStatus = getOrderStatus()
+            )
+        }
+
+        return OrderEntity(
+            orderId = UUID.randomUUID().toString(),
+            orderName = name,
+            orderDescription = description,
+            orderStatus = getOrderStatus()
         )
     }
 
-    private fun fieldsFilled() : Boolean {
-        val name = binding.nameEditText.text.toString().trim()
-        val loginId = binding.loginIdEditText.text.toString().trim()
-        val password = binding.passwordEditText.text.toString().trim()
-        val type = binding.typeEditText.text.toString().trim()
+    private fun getOrderStatusRadioButton(status: String) : Int {
+        return when (status) {
+            Constants.ORDER_PENDING -> binding.pendingRadioButton.id
+            Constants.ORDER_IN_PROGRESS -> binding.inProgressRadioButton.id
+            Constants.ORDER_COMPLETED -> binding.completedRadioButton.id
+            else -> binding.pendingRadioButton.id
+        }
+    }
 
-        var failed = false
+    private fun getOrderStatus() : String {
+        return when (binding.statusRadioGroup.checkedRadioButtonId) {
+            binding.pendingRadioButton.id -> Constants.ORDER_PENDING
+            binding.inProgressRadioButton.id -> Constants.ORDER_IN_PROGRESS
+            binding.completedRadioButton.id -> Constants.ORDER_COMPLETED
+            else -> Constants.ORDER_PENDING
+        }
+    }
+
+    private fun fieldsFilled(): Boolean {
+        val name = binding.nameEditText.text.toString().trim()
+        val description = binding.descriptionEditText.text.toString().trim()
+
+        var failed: Boolean = false
 
         if (name.isEmpty()) {
             binding.nameLabelTextView.error = "Required field"
@@ -87,36 +129,42 @@ class AddOrderFragment : BaseFragment() {
             binding.nameLabelTextView.error = null
         }
 
-        if (loginId.isEmpty()) {
-            binding.loginIdLabelTextView.error = "Required field"
+        if (description.isEmpty()) {
+            binding.descriptionEditText.error = "Required field"
             failed = true
         } else {
-            binding.loginIdLabelTextView.error = null
-        }
-
-        if (password.isEmpty()) {
-            binding.passwordLabelTextView.error = "Required field"
-            failed = true
-        } else {
-            binding.passwordLabelTextView.error = null
-        }
-
-        if (type.isEmpty()) {
-            binding.typeLabelTextView.error = "Required field"
-            failed = true
-        } else {
-            binding.typeLabelTextView.error = null
+            binding.descriptionEditText.error = null
         }
 
         return !failed
     }
 
-    private fun saveUserEntityToDatabase(userEntity: UserEntity) {
-        ordersViewModel.insertUser(userEntity)
+    private fun saveOrderEntityToDatabase(orderEntity: OrderEntity) {
+        if (inEditMode) {
+            ordersViewModel.updateOrder(orderEntity)
+            navigateUp()
+        } else {
+            ordersViewModel.insertOrder(orderEntity)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_delete, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == R.id.menuDeleteItem) {
+            ordersViewModel.deleteOrder(selectedOrderEntity)
+            navigateUp()
+            true
+        } else {
+            super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        ordersViewModel.orderEntityEditIdLiveData.value = null
         _binding = null
-    }*/
+    }
 }
