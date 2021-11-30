@@ -2,6 +2,7 @@ package com.example.warehouse.ui.items
 
 import com.example.warehouse.database.WarehouseDatabase
 import com.example.warehouse.database.entity.ItemEntity
+import com.example.warehouse.database.entity.OrderItemCrossRef
 import kotlinx.coroutines.flow.Flow
 
 class ItemsRepository(
@@ -23,5 +24,4 @@ class ItemsRepository(
     fun getAllItems(): Flow<List<ItemEntity>> {
         return warehouseDatabase.itemEntityDao().getAllItems()
     }
-
 }

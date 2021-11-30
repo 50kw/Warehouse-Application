@@ -42,6 +42,11 @@
         android:name="com.example.warehouse.ui.items.ItemsFragment"
         android:label="Items"
         tools:layout="@layout/fragment_items">
+        <argument
+            android:name="itemSelectOrderId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
         <action
             android:id="@+id/action_nav_items_to_addItemFragment"
             app:destination="@id/addItemFragment" />
@@ -63,16 +68,20 @@
     <fragment
         android:id="@+id/addUserFragment"
         android:name="com.example.warehouse.ui.users.add.AddUserFragment"
-        android:label="AddUserFragment"
+        android:label="Add User"
         tools:layout="@layout/fragment_add_user"/>
     <fragment
         android:id="@+id/addOrderFragment"
         android:name="com.example.warehouse.ui.orders.add.AddOrderFragment"
-        android:label="AddOrderFragment"
+        android:label="Add Order"
         tools:layout="@layout/fragment_add_order"/>
     <fragment
         android:id="@+id/orderInformationFragment"
         android:name="com.example.warehouse.ui.orders.information.OrderInformationFragment"
-        android:label="OrderInformationFragment"
-        tools:layout="@layout/fragment_order_information"/>
+        android:label="Order Information"
+        tools:layout="@layout/fragment_order_information">
+        <action
+            android:id="@+id/action_orderInformationFragment_to_nav_items"
+            app:destination="@id/nav_items" />
+    </fragment>
 </navigation>

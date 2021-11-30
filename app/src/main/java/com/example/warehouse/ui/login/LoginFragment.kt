@@ -1,19 +1,15 @@
 package com.example.warehouse.ui.login
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.warehouse.R
 import com.example.warehouse.SharedPrefUtil
 import com.example.warehouse.database.WarehouseDatabase
 import com.example.warehouse.databinding.FragmentLoginBinding
 import com.example.warehouse.ui.BaseFragment
-import com.example.warehouse.ui.orders.OrderViewModel
-import com.example.warehouse.ui.users.UsersFragmentDirections
 
 class LoginFragment : BaseFragment() {
 
@@ -51,12 +47,6 @@ class LoginFragment : BaseFragment() {
             setCurrentUser("none")
         }
 
-
-        //findNavController().popBackStack()
-        /*val actionBar = requireActivity().actionBar
-        actionBar?.setDisplayHomeAsUpEnabled(false)
-        actionBar?.setDisplayShowHomeEnabled(false)
-        actionBar?.setHomeButtonEnabled(false)*/
         val navIcon = mainActivity.toolbar.navigationIcon
         mainActivity.toolbar.navigationIcon = null
 
@@ -76,15 +66,15 @@ class LoginFragment : BaseFragment() {
                 navigateViaNavGraph(navDirections)
                 return@observe
             }
-            //Log.i("userid", userId)
+
         }
 
-
         binding.loginButton.setOnClickListener {
-            /*val navDirections = LoginFragmentDirections.actionLoginFragmentToOrdersFragment()
-            navigateViaNavGraph(navDirections)*/
             if (noInputErrors()) {
-                login(binding.userIdEditText.text.toString(), binding.passwordEditText.text.toString())
+                login(
+                    binding.userIdEditText.text.toString(),
+                    binding.passwordEditText.text.toString()
+                )
             }
         }
 

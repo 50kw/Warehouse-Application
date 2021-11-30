@@ -25,7 +25,7 @@ class WarehouseRepository(
     }
 
 
-    /*suspend fun insertOrder(orderEntity: OrderEntity) {
+    suspend fun insertOrder(orderEntity: OrderEntity) {
         warehouseDatabase.orderEntityDao().insertOrder(orderEntity)
     }
 
@@ -37,14 +37,13 @@ class WarehouseRepository(
         warehouseDatabase.orderEntityDao().updateOrder(orderEntity)
     }
 
-    fun getAllOrders(): Flow<List<OrderEntity>> {
-        return warehouseDatabase.orderEntityDao().getAllOrders()
+    suspend fun insertOrderItem(itemEntityList: List<ItemEntity>) {
+        warehouseDatabase.orderEntityDao().insertItem(itemEntityList)
     }
 
     fun getAllOrderWithItemEntities(): Flow<List<OrderWithItemEntities>> {
         return warehouseDatabase.orderEntityDao().getAllOrderWithItemEntities()
-    }*/
-
+    }
 
 
     suspend fun insertUser(userEntity: UserEntity) {
@@ -59,15 +58,8 @@ class WarehouseRepository(
         warehouseDatabase.userEntityDao().updateUser(userEntity)
     }
 
-    fun getAllUsers(): Flow<List<UserEntity>> {
-        return warehouseDatabase.userEntityDao().getAllUsers()
-    }
-
     fun getAllUserWithOrderEntity(): Flow<List<UserWithOrderEntity>> {
         return warehouseDatabase.userEntityDao().getAllUserWithOrderEntity()
     }
 
-    suspend fun getUserId(userId: String, password: String): String? {
-        return warehouseDatabase.userEntityDao().getUserId(userId, password)
-    }
 }

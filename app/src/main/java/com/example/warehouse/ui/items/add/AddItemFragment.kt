@@ -70,7 +70,7 @@ class AddItemFragment : BaseFragment() {
         setHasOptionsMenu(true)
 
         binding.saveButton.text = "Update"
-        mainActivity.supportActionBar?.title = "Update item"
+        mainActivity.supportActionBar?.title = "Update Item"
 
         binding.nameEditText.setText(selectedItemEntity.itemName)
         binding.quantityEditText.setText(selectedItemEntity.itemCount.toString())

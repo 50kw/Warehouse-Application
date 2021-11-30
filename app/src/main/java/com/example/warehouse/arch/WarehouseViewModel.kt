@@ -1,6 +1,5 @@
 package com.example.warehouse.arch
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,7 +8,7 @@ import com.example.warehouse.database.entity.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class WarehouseViewModel: ViewModel() {
+class WarehouseViewModel : ViewModel() {
     private lateinit var repository: WarehouseRepository
 
     val itemEntitiesLiveData = MutableLiveData<List<ItemEntity>>()
@@ -18,7 +17,7 @@ class WarehouseViewModel: ViewModel() {
 
     val transactionCompleteLiveData = MutableLiveData<Event<Boolean>>()
 
-    fun init (warehouseDatabase: WarehouseDatabase) {
+    fun init(warehouseDatabase: WarehouseDatabase) {
         repository = WarehouseRepository(warehouseDatabase)
 
         viewModelScope.launch {
@@ -33,33 +32,20 @@ class WarehouseViewModel: ViewModel() {
             }
         }
 
-        /*viewModelScope.launch {
+        viewModelScope.launch {
             repository.getAllOrderWithItemEntities().collect { orders ->
                 orderWithItemEntitiesLiveData.postValue(orders)
             }
-        }*/
+        }
     }
 
-    private val _loginViewStateLiveData = MutableLiveData<String>()
-    val loginViewStateLiveData: LiveData<String>
-        get() = _loginViewStateLiveData
-
-/*    data class LoginViewState(
-        private val userId: String = "",
-        private val loginId: String,
-        private val password: String
-    ) {
-        fun getUserID
-    }*/
-
-    fun userLogin(loginId: String, password: String) {
-        userWithOrderEntityLiveData.value?.forEach {
-            if (it.userEntity.userLoginId == loginId && it.userEntity.userPassword == password) {
-                _loginViewStateLiveData.postValue(it.userEntity.userId)
-                return
+    fun findUserLoginId(userId: String): String {
+        userWithOrderEntityLiveData.value?.forEach { userWithOrderEntity ->
+            if (userWithOrderEntity.userEntity.userId == userId) {
+                return userWithOrderEntity.userEntity.userLoginId
             }
         }
-        _loginViewStateLiveData.postValue("none")
+        return "Not Found"
     }
 
     fun insertItem(itemEntity: ItemEntity) {
@@ -84,7 +70,7 @@ class WarehouseViewModel: ViewModel() {
         }
     }
 
-    /*fun insertOrder(orderEntity: OrderEntity) {
+    fun insertOrder(orderEntity: OrderEntity) {
         viewModelScope.launch {
             repository.insertOrder(orderEntity)
 
@@ -104,7 +90,7 @@ class WarehouseViewModel: ViewModel() {
 
             transactionCompleteLiveData.postValue(Event(true))
         }
-    }*/
+    }
 
     fun insertUser(userEntity: UserEntity) {
         viewModelScope.launch {

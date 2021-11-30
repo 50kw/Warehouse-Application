@@ -22,10 +22,6 @@ class UsersRepository(
         warehouseDatabase.userEntityDao().updateUser(userEntity)
     }
 
-    fun getAllUsers(): Flow<List<UserEntity>> {
-        return warehouseDatabase.userEntityDao().getAllUsers()
-    }
-
     fun getAllUserWithOrderEntity(): Flow<List<UserWithOrderEntity>> {
         return warehouseDatabase.userEntityDao().getAllUserWithOrderEntity()
     }

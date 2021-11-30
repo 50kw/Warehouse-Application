@@ -1,20 +1,13 @@
 package com.example.warehouse.ui.orders
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.TextView
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import com.example.warehouse.R
 import com.example.warehouse.SharedPrefUtil
 import com.example.warehouse.database.WarehouseDatabase
 import com.example.warehouse.databinding.FragmentOrdersBinding
 import com.example.warehouse.ui.BaseFragment
-import com.example.warehouse.ui.login.LoginViewModel
-import com.example.warehouse.ui.users.UsersFragmentDirections
 
 class OrdersFragment : BaseFragment() {
 
@@ -22,7 +15,6 @@ class OrdersFragment : BaseFragment() {
     private val binding get() = _binding!!
 
     val orderViewModel: OrderViewModel by activityViewModels()
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +25,7 @@ class OrdersFragment : BaseFragment() {
         var userId = getCurrentUser()
         if (savedUserId != "none") {
             userId = savedUserId
+            //setCurrentUser(savedUserId)
         }
         if (userId == "none") {
             navigateViaNavGraph(OrdersFragmentDirections.actionNavOrdersToLoginFragment(true))

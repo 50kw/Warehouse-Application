@@ -27,20 +27,11 @@ abstract class BaseFragment : Fragment() {
         mainActivity.drawerLayout.setDrawerLockMode(lockMode)
     }
 
-   protected fun setNavigationHeaderUserId(userId: String) {
-        //mainActivity.navigationView.inflateHeaderView(R.layout.navigation_header)
-        val headerView = mainActivity.navigationView.getHeaderView(0)
-        val headerUserId : TextView = headerView.findViewById(R.id.navHeaderUserIdTextView)
-        headerUserId.text = userId
-    }
-
     protected val mainActivity: MainActivity
         get() = activity as MainActivity
 
     protected val warehouseDatabase: WarehouseDatabase
         get() = WarehouseDatabase.getDatabase(requireActivity())
-
-    protected val sharedViewModel: WarehouseViewModel by activityViewModels()
 
 
     protected fun navigateViaNavGraph(actionId: Int) {

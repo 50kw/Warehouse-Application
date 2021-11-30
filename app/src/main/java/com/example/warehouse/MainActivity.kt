@@ -18,8 +18,6 @@ import com.example.warehouse.arch.WarehouseViewModel
 import com.example.warehouse.database.WarehouseDatabase
 import com.google.android.material.navigation.NavigationView
 
-
-
 class MainActivity : AppCompatActivity() {
 
     lateinit var navController: NavController
@@ -27,6 +25,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var drawerLayout: DrawerLayout
     lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var navigationView: NavigationView
+
+    val warehouseViewModel: WarehouseViewModel by viewModels()
 
     var currentUserId = "none"
 
@@ -36,32 +36,10 @@ class MainActivity : AppCompatActivity() {
 
         SharedPrefUtil.init(this)
 
-        val viewModel: WarehouseViewModel by viewModels()
-        viewModel.init(WarehouseDatabase.getDatabase(this))
-
-        /*val userEntity = UserEntity(userId = "admin",
-            userLoginId = "admin",
-            userPassword = "admin",
-            userFullName = "admin",
-            userPosition = "admin"
-        )
-
-        viewModel.insertUser(userEntity)*/
-
-        //deleteDatabase("warehouse-database")
-
-        //SharedPrefUtil.setCurrentUserId("none")
-        //SharedPrefUtil.setSavedUserId("none")
-
-       /* if (SharedPrefUtil.getCurrentUserId() == "tom") {
-            val fragment =
-                supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
-            findNavController(fragment).navigate(R.id.loginFragment)
-        }*/
+        warehouseViewModel.init(WarehouseDatabase.getDatabase(this))
 
         setupDrawerNavigation()
 
-        //navigationView.setNavigationItemSelectedListener(NavigationViewListener(::onLogout))
     }
 
     private fun setupDrawerNavigation() {
@@ -85,12 +63,7 @@ class MainActivity : AppCompatActivity() {
         navigationView.setupWithNavController(navController)
     }
 
-    /*override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
-        return true
-    }*/
-    private fun onLogout() {
+    /*private fun onLogout() {
         SharedPrefUtil.setSavedUserId("none")
         SharedPrefUtil.setCurrentUserId("none")
         currentUserId = "none"
@@ -109,15 +82,15 @@ class MainActivity : AppCompatActivity() {
     ): NavigationView.OnNavigationItemSelectedListener {
         override fun onNavigationItemSelected(item: MenuItem): Boolean {
             return when (item.itemId) {
-                /*R.id.nav_logout -> {
+                *//*R.id.nav_logout -> {
                     onLogout()
                     false
-                }*/
+                }*//*
                 else -> return false
             }
         }
 
-    }
+    }*/
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)

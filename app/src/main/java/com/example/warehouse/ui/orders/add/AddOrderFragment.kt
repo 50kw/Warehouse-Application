@@ -70,7 +70,7 @@ class AddOrderFragment : BaseFragment() {
         setHasOptionsMenu(true)
 
         binding.saveButton.text = "Update"
-        mainActivity.supportActionBar?.title = "Update order"
+        mainActivity.supportActionBar?.title = "Update Order"
 
         binding.nameEditText.setText(selectedOrderEntity.orderName)
         binding.descriptionEditText.setText(selectedOrderEntity.orderDescription)

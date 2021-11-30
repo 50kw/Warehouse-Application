@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingBottom="86dp"
-        android:paddingTop="10dp"
+        android:paddingTop="5dp"
         app:itemSpacing="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 

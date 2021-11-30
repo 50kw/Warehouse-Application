@@ -1,8 +1,7 @@
 package com.example.warehouse.database.dao
 
 import androidx.room.*
-import com.example.warehouse.database.entity.OrderEntity
-import com.example.warehouse.database.entity.OrderWithItemEntities
+import com.example.warehouse.database.entity.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -17,6 +16,19 @@ interface OrderEntityDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOrder(orderEntity: OrderEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertOrderItemCrossRef(crossRef: OrderItemCrossRef)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertItem(itemEntityList: List<ItemEntity>)
+
+    @Transaction
+    suspend fun insertOrderWithItemEntities(orderEntity: OrderEntity, itemEntityList: List<ItemEntity>) {
+
+        insertItem(itemEntityList)
+    }
+
 
     @Delete
     suspend fun deleteOrder(orderEntity: OrderEntity)

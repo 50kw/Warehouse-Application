@@ -1,5 +1,6 @@
 package com.example.warehouse.ui.items
 
+import android.content.ClipData
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.warehouse.arch.Event
 import com.example.warehouse.database.WarehouseDatabase
 import com.example.warehouse.database.entity.ItemEntity
+import com.example.warehouse.database.entity.OrderEntity
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -49,6 +51,18 @@ class ItemsViewModel : ViewModel() {
         data class DataItem<T> (
             val data: T
         )
+    }
+
+    fun showItemEntitiesWithText(text: String) {
+        val dataList = ArrayList<ItemsViewState.DataItem<*>>()
+
+        itemEntitiesLiveData.value?.forEach { itemEntity ->
+            if (itemEntity.itemName.lowercase().contains(text.lowercase()) || text.isEmpty()) {
+                dataList.add(ItemsViewState.DataItem(itemEntity))
+            }
+        }
+
+        _itemsViewStateLiveData.postValue(ItemsViewState(dataList = dataList, isLoading = false))
     }
 
     private fun updateItemsViewState(items: List<ItemEntity>) {

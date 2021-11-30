@@ -28,4 +28,5 @@
     <style name="Theme.Warehouse.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.Warehouse.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>

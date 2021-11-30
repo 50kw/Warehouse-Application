@@ -12,10 +12,6 @@ class LoginViewModel : ViewModel() {
 
     private lateinit var repository: LoginRepository
 
-    private val storedUserId = SharedPrefUtil.getCurrentUserId()
-
-    val orderTransactionCompleteLiveData = MutableLiveData<Event<Boolean>>()
-
     val userId = MutableLiveData<String>()
 
 
