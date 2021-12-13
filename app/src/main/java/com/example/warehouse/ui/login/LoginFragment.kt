@@ -78,7 +78,6 @@ class LoginFragment : BaseFragment() {
             }
         }
 
-
     }
 
     private fun noInputErrors(): Boolean {

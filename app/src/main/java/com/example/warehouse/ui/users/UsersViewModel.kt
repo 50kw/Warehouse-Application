@@ -6,9 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.warehouse.arch.Event
 import com.example.warehouse.database.WarehouseDatabase
-import com.example.warehouse.database.entity.ItemEntity
-import com.example.warehouse.database.entity.UserEntity
-import com.example.warehouse.database.entity.UserWithOrderEntity
+import com.example.warehouse.database.entity.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -18,6 +16,8 @@ class UsersViewModel : ViewModel() {
     val userWithOrderEntityLiveData = MutableLiveData<List<UserWithOrderEntity>>()
 
     val transactionCompleteLiveData = MutableLiveData<Event<Boolean>>()
+
+    val userEntityEditIdLiveData = MutableLiveData<String>()
 
     fun init (warehouseDatabase: WarehouseDatabase) {
         repository = UsersRepository(warehouseDatabase)
@@ -30,6 +30,12 @@ class UsersViewModel : ViewModel() {
             }
         }
 
+    }
+
+    fun findUserEntity(userId : String) : UserWithOrderEntity {
+        return userWithOrderEntityLiveData.value?.find { userWithItemEntities ->
+            userWithItemEntities.userEntity.userId == userId
+        }?: UserWithOrderEntity(UserEntity(), OrderEntity())
     }
 
     private val _usersViewStateLiveData = MutableLiveData<UsersViewState>()
@@ -66,6 +72,8 @@ class UsersViewModel : ViewModel() {
     fun deleteUser(userEntity: UserEntity) {
         viewModelScope.launch {
             repository.deleteUser(userEntity)
+
+            userEntityEditIdLiveData.value = null
         }
     }
 

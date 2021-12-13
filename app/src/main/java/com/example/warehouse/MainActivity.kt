@@ -63,34 +63,6 @@ class MainActivity : AppCompatActivity() {
         navigationView.setupWithNavController(navController)
     }
 
-    /*private fun onLogout() {
-        SharedPrefUtil.setSavedUserId("none")
-        SharedPrefUtil.setCurrentUserId("none")
-        currentUserId = "none"
-        navController.navigate(R.id.nav_orders)
-        drawerLayout.closeDrawers()
-        setDrawerLocked(true)
-    }
-
-    fun setDrawerLocked(locked: Boolean) {
-        val lockMode = if (locked) DrawerLayout.LOCK_MODE_LOCKED_CLOSED else DrawerLayout.LOCK_MODE_UNLOCKED
-        drawerLayout.setDrawerLockMode(lockMode)
-    }
-
-    private class NavigationViewListener(
-        private val onLogout: () -> Unit
-    ): NavigationView.OnNavigationItemSelectedListener {
-        override fun onNavigationItemSelected(item: MenuItem): Boolean {
-            return when (item.itemId) {
-                *//*R.id.nav_logout -> {
-                    onLogout()
-                    false
-                }*//*
-                else -> return false
-            }
-        }
-
-    }*/
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)

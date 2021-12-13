@@ -41,7 +41,8 @@ class UsersFragment : BaseFragment() {
     }
 
     private fun onUserSelected(userId: String) {
-
+        usersViewModel.userEntityEditIdLiveData.postValue(userId)
+        navigateViaNavGraph(UsersFragmentDirections.actionNavUsersToAddUserFragment())
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

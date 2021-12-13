@@ -14,7 +14,6 @@ class LoginViewModel : ViewModel() {
 
     val userId = MutableLiveData<String>()
 
-
     fun init (warehouseDatabase: WarehouseDatabase) {
         repository = LoginRepository(warehouseDatabase)
 

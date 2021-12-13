@@ -1,14 +1,13 @@
 package com.example.warehouse.ui.users.add
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.example.warehouse.R
 import com.example.warehouse.database.entity.ItemEntity
+import com.example.warehouse.database.entity.OrderEntity
 import com.example.warehouse.database.entity.UserEntity
 import com.example.warehouse.databinding.FragmentAddUserBinding
 import com.example.warehouse.ui.BaseFragment
@@ -20,6 +19,9 @@ class AddUserFragment : BaseFragment() {
 
     private var _binding: FragmentAddUserBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var selectedUserEntity: UserEntity
+    private var inEditMode = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,6 +56,27 @@ class AddUserFragment : BaseFragment() {
 
             binding.nameEditText.requestFocus()
         }
+
+        usersViewModel.userEntityEditIdLiveData.observe(viewLifecycleOwner) { userEntityId ->
+            userEntityId?.let {
+                setupEditMode(userEntityId)
+            }
+        }
+    }
+
+    private fun setupEditMode(userId: String) {
+        inEditMode = true
+        selectedUserEntity = usersViewModel.findUserEntity(userId).userEntity
+        setHasOptionsMenu(true)
+
+        binding.saveButton.text = "Update"
+        mainActivity.supportActionBar?.title = "Update User"
+
+        binding.nameEditText.setText(selectedUserEntity.userFullName)
+        binding.loginIdEditText.setText(selectedUserEntity.userLoginId)
+        binding.passwordEditText.setText(selectedUserEntity.userPassword)
+        binding.typeEditText.setText(selectedUserEntity.userPosition)
+        binding.nameEditText.requestFocus()
     }
 
     private fun generateUserEntity() : UserEntity {
@@ -61,6 +84,15 @@ class AddUserFragment : BaseFragment() {
         val loginId = binding.loginIdEditText.text.toString().trim()
         val password = binding.passwordEditText.text.toString().trim()
         val type = binding.typeEditText.text.toString().trim()
+
+        if (inEditMode) {
+            return selectedUserEntity!!.copy(
+                userFullName = name,
+                userLoginId = loginId,
+                userPassword = password,
+                userPosition = type
+            )
+        }
 
         return UserEntity(
             userId = UUID.randomUUID().toString(),
@@ -111,11 +143,31 @@ class AddUserFragment : BaseFragment() {
     }
 
     private fun saveUserEntityToDatabase(userEntity: UserEntity) {
-        usersViewModel.insertUser(userEntity)
+        if (inEditMode) {
+            usersViewModel.updateUser(userEntity)
+            navigateUp()
+        } else {
+            usersViewModel.insertUser(userEntity)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_delete, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == R.id.menuDeleteItem) {
+            usersViewModel.deleteUser(selectedUserEntity)
+            navigateUp()
+            true
+        } else {
+            super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        usersViewModel.userEntityEditIdLiveData.value = null
         _binding = null
     }
 }
