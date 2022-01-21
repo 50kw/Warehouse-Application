@@ -75,7 +75,7 @@
                 android:id="@+id/passwordEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textVisiblePassword"
+                android:inputType="textPassword"
                 android:textColor="?attr/colorOnBackground" />
 
         </com.google.android.material.textfield.TextInputLayout>

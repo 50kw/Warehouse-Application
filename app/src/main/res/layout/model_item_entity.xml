@@ -14,36 +14,41 @@
         android:layout_height="match_parent">
 
 
-        <ImageView
-            android:id="@+id/loginIdImageView"
+        <TextView
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="70dp"
-            android:src="@drawable/multiple_boxes"
+            android:layout_marginTop="8dp"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:text="Quantity"
             app:layout_constraintEnd_toStartOf="@+id/fullNameImageView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="Item Quantity" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <TextView
             android:id="@+id/fullNameImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:src="@drawable/single_box"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:text="Name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:contentDescription="Item Name" />
 
-        <ImageView
+        <TextView
             android:id="@+id/imageView24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="70dp"
             android:layout_marginTop="8dp"
-            android:src="@drawable/shelf_with_boxes"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:text="Place"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/fullNameImageView"
             app:layout_constraintTop_toTopOf="parent"
@@ -73,9 +78,9 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/loginIdImageView"
-            app:layout_constraintStart_toStartOf="@+id/loginIdImageView"
-            app:layout_constraintTop_toBottomOf="@+id/loginIdImageView" />
+            app:layout_constraintEnd_toEndOf="@+id/textView3"
+            app:layout_constraintStart_toStartOf="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <TextView
             android:id="@+id/placeTextView"

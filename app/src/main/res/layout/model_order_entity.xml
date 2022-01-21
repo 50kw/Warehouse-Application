@@ -13,14 +13,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
+        <TextView
             android:id="@+id/orderNameImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="90dp"
             android:layout_marginTop="8dp"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:text="Name"
             android:contentDescription="User Name"
-            android:src="@drawable/ic_content_paste_32"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/black" />
@@ -39,14 +41,15 @@
             app:layout_constraintStart_toStartOf="@+id/orderNameImageView"
             app:layout_constraintTop_toBottomOf="@+id/orderNameImageView" />
 
-        <ImageView
+        <TextView
             android:id="@+id/orderStatusImageView"
-            android:layout_width="32dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginTop="8dp"
+            android:textColor="@color/black"
+            android:text="Status"
             android:contentDescription="User ID"
-            android:src="@drawable/ic_question_mark_32"
             app:layout_constraintEnd_toStartOf="@+id/moreImageView"
             app:layout_constraintStart_toEndOf="@+id/orderNameImageView"
             app:layout_constraintTop_toTopOf="parent"
