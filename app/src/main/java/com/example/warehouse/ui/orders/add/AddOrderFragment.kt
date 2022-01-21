@@ -96,6 +96,7 @@ class AddOrderFragment : BaseFragment() {
             orderDescription = description,
             orderStatus = getOrderStatus()
         )
+        
     }
 
     private fun getOrderStatusRadioButton(status: String) : Int {
